@@ -71,3 +71,29 @@ public extension View {
     ))
   }
 }
+
+extension View {
+  func addOpacityAnimation(
+    opacityManager: OpacityAnimationManager,
+    duration: CGFloat = 0,
+    delay: CGFloat = 0
+  ) -> some View {
+    modifier(AnimationModifier(
+      manager: opacityManager,
+      duration: duration,
+      delay: delay
+    ))
+  }
+
+  func addParallaxMotion(
+    manager: MotionManager,
+    magnitude: CGFloat
+  ) -> some View {
+    modifier(
+      ParallaxMotionModifier(
+        manager: manager,
+        magnitude: magnitude
+      )
+    )
+  }
+}
