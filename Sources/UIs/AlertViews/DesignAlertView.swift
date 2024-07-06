@@ -144,7 +144,7 @@ public struct DesignAlertView: View {
   }
 }
 
-struct DesignAlertView_Previews: PreviewProvider {
+struct DesignAlertView_Preview: PreviewProvider {
   static var previews: some View {
     DesignAlertView(
       presentAlert: .constant(true),
