@@ -106,3 +106,11 @@ extension View {
     modifier(RowTextModifier(type: type, theme: theme))
   }
 }
+
+extension View {
+  func presentationBackground(
+    color: Color
+  ) -> some View {
+    modifier(PresentationBackgroundModifier(color: color))
+  }
+}
