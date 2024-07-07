@@ -11,3 +11,10 @@ public struct PreviewableModifier: ViewModifier {
       )
   }
 }
+
+struct PreviewableModifier_Preview: PreviewProvider {
+  static var previews: some View {
+    Text("Test Previewable Modifier")
+      .previewable()
+  }
+}

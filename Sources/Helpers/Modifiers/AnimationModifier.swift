@@ -19,3 +19,10 @@ public struct AnimationModifier: ViewModifier {
       }
   }
 }
+
+struct AnimationModifier_Preview: PreviewProvider {
+  static var previews: some View {
+    Text("Test Animation Modifier")
+      .addOpacityAnimation(opacityManager: .init(opacity: 0))
+  }
+}

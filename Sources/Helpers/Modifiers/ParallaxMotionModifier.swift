@@ -16,3 +16,10 @@ public struct ParallaxMotionModifier: ViewModifier {
       )
   }
 }
+
+struct ParallaxMotionModifier_Preview: PreviewProvider {
+  static var previews: some View {
+    Text("Test Parallax Motion Modifier")
+      .addParallaxMotion(manager: .init(), magnitude: 20)
+  }
+}
