@@ -97,3 +97,12 @@ extension View {
     )
   }
 }
+
+extension View {
+  func config(
+    for type: RowTextType,
+    in theme: any TTheme
+  ) -> some View {
+    modifier(RowTextModifier(type: type, theme: theme))
+  }
+}
