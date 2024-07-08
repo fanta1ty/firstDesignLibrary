@@ -116,6 +116,9 @@ public struct TColorsPalatte {
   public let uiPrimary50: Color
 
   public let uiTransparent: Color
+
+  public let tpBrandColor: Color
+  public let tpBrandColorLight: Color
 }
 
 public extension TColorsPalatte {
@@ -206,7 +209,9 @@ public extension TColorsPalatte {
     uiPrimaryDark: Color(.pr800),
     uiPrimaryLight: Color(.n0),
     uiPrimary50: Color(.pr50),
-    uiTransparent: Color(.n0.withAlphaComponent(0.0))
+    uiTransparent: Color(.n0.withAlphaComponent(0.0)),
+    tpBrandColor: Color(.sd700),
+    tpBrandColorLight: Color(.sd400)
   )
 
   static let darkColorsPalette = TColorsPalatte(
@@ -296,6 +301,8 @@ public extension TColorsPalatte {
     uiPrimaryDark: Color(.pr800),
     uiPrimaryLight: Color(.n0),
     uiPrimary50: Color(.pr50),
-    uiTransparent: Color(.n0.withAlphaComponent(0.0))
+    uiTransparent: Color(.n0.withAlphaComponent(0.0)),
+    tpBrandColor: Color(.sd700),
+    tpBrandColorLight: Color(.sd400)
   )
 }
