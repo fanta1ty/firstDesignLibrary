@@ -114,3 +114,9 @@ extension View {
     modifier(PresentationBackgroundModifier(color: color))
   }
 }
+
+extension View {
+  func addDivider(with color: Color) -> some View {
+    modifier(DividerModifier(color: color))
+  }
+}
