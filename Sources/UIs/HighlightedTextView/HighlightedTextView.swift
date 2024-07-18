@@ -3,6 +3,8 @@
 
 import SwiftUI
 
+// MARK: - HighlightedTextView
+
 public struct HighlightedTextView: View {
   let text: String
   let textFont: Font
@@ -58,6 +60,8 @@ public struct HighlightedTextView: View {
     return Text(attributedString)
   }
 }
+
+// MARK: - HighlightedTextView_Preview
 
 struct HighlightedTextView_Preview: PreviewProvider {
   static var previews: some View {

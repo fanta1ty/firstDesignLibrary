@@ -4,6 +4,8 @@
 import Combine
 import SwiftUI
 
+// MARK: - InfiniteCarousel
+
 public struct InfiniteCarousel<Content: View, T: Any>: View {
   @EnvironmentObject var themeProvider: ThemeProvider
 
@@ -45,8 +47,8 @@ public struct InfiniteCarousel<Content: View, T: Any>: View {
   ) {
     var modifiedData = data
 
-    if data.count > 1, 
-        let firstElement = data.first,
+    if data.count > 1,
+       let firstElement = data.first,
        let lastElement = data.last {
       modifiedData.append(firstElement)
       modifiedData.insert(lastElement, at: 0)
@@ -78,108 +80,108 @@ public struct InfiniteCarousel<Content: View, T: Any>: View {
     let stepper: Color = stepperColor ?? themeProvider.currentTheme.colors.uiAccent
 
     TabView(selection: $selectedTab,
-            content:  {
-      ForEach(Array(zip(data.indices, data)), id: \.0) { index, item in
-        GeometryReader(content: { _ in
-          content(item)
-            .padding([.horizontal, .top], defaultPadding)
-            .padding(.bottom, data.count > 1 ? 32 : defaultPadding)
-        })
-        .tag(index)
-      }
-    })
-    .tabViewStyle(.page(indexDisplayMode: .never))
-    .if(data.count == 0) { _ in
-      EmptyView()
-    }
-    .if(data.count > 1) {
-      $0.overlay(
-        HStack(spacing: 8, content: {
-          ForEach(1..<data.count-1, id: \.self) { ind in
-            Capsule()
-              .cornerRadius(2)
-              .foregroundColor(ind == selectedTab ? selectedStepperColor : stepper)
-              .frame(width: ind == selectedTab ? 12 : 4, height: 4)
-          }
-        })
-        .padding(.bottom, defaultPadding)
-        .padding(.leading, isPageControlCentered ? 0 : 20),
-        alignment: isPageControlCentered ? .bottom : .bottomLeading
-      )
-      .onChange(of: selectedTab) { newValue in
-        if isManualSwipe {
-          if newValue == 0 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + swipeTransitionDuration, execute: {
-              selectedTab = data.count - 2
-              onSwipe?(selectedTab - 1)
-            })
-          } else {
-            if newValue == data.count - 1 {
-              DispatchQueue.main.asyncAfter(deadline: .now() + swipeTransitionDuration, execute: {
-                selectedTab = 1
-                onSwipe?(selectedTab - 1)
-              })
-            } else {
-              DispatchQueue.main.asyncAfter(deadline: .now() + swipeTransitionDuration, execute: {
-                onSwipe?(selectedTab - 1)
-              })
-            }
-          }
-          isManualSwipe = false
-        } else {
-          if showAlternativeBanner {
-            guard newValue < data.count else {
-              withAnimation {
-                selectedTab = 0
-                onSwipe?(selectedTab)
+            content: {
+              ForEach(Array(zip(data.indices, data)), id: \.0) { index, item in
+                GeometryReader(content: { _ in
+                  content(item)
+                    .padding([.horizontal, .top], defaultPadding)
+                    .padding(.bottom, data.count > 1 ? 32 : defaultPadding)
+                })
+                .tag(index)
               }
-              return
+            })
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .if(data.isEmpty) { _ in
+              EmptyView()
             }
-          } else {
-            if newValue == 0 {
-              DispatchQueue.main.asyncAfter(deadline: .now() + swipeTransitionDuration, execute: {
-                selectedTab = data.count - 2
-                onSwipe?(selectedTab)
-              })
-            }
+            .if(data.count > 1) {
+              $0.overlay(
+                HStack(spacing: 8, content: {
+                  ForEach(1 ..< data.count - 1, id: \.self) { ind in
+                    Capsule()
+                      .cornerRadius(2)
+                      .foregroundColor(ind == selectedTab ? selectedStepperColor : stepper)
+                      .frame(width: ind == selectedTab ? 12 : 4, height: 4)
+                  }
+                })
+                .padding(.bottom, defaultPadding)
+                .padding(.leading, isPageControlCentered ? 0 : 20),
+                alignment: isPageControlCentered ? .bottom : .bottomLeading
+              )
+              .onChange(of: selectedTab) { newValue in
+                if isManualSwipe {
+                  if newValue == 0 {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + swipeTransitionDuration) {
+                      selectedTab = data.count - 2
+                      onSwipe?(selectedTab - 1)
+                    }
+                  } else {
+                    if newValue == data.count - 1 {
+                      DispatchQueue.main.asyncAfter(deadline: .now() + swipeTransitionDuration) {
+                        selectedTab = 1
+                        onSwipe?(selectedTab - 1)
+                      }
+                    } else {
+                      DispatchQueue.main.asyncAfter(deadline: .now() + swipeTransitionDuration) {
+                        onSwipe?(selectedTab - 1)
+                      }
+                    }
+                  }
+                  isManualSwipe = false
+                } else {
+                  if showAlternativeBanner {
+                    guard newValue < data.count else {
+                      withAnimation {
+                        selectedTab = 0
+                        onSwipe?(selectedTab)
+                      }
+                      return
+                    }
+                  } else {
+                    if newValue == 0 {
+                      DispatchQueue.main.asyncAfter(deadline: .now() + swipeTransitionDuration) {
+                        selectedTab = data.count - 2
+                        onSwipe?(selectedTab)
+                      }
+                    }
 
-            if newValue == data.count - 1 {
-              DispatchQueue.main.asyncAfter(deadline: .now() + swipeTransitionDuration, execute: {
-                selectedTab = 1
-                onSwipe?(selectedTab)
+                    if newValue == data.count - 1 {
+                      DispatchQueue.main.asyncAfter(deadline: .now() + swipeTransitionDuration) {
+                        selectedTab = 1
+                        onSwipe?(selectedTab)
+                      }
+                    }
+                  }
+                }
+              }
+              .onReceive(timer, perform: { _ in
+                withAnimation {
+                  onSwipe?(selectedTab)
+                  selectedTab += 1
+                }
               })
+              .gesture(DragGesture()
+                .updating($isDragging, body: { _, state, _ in
+                  state = true
+                })
+                .onChanged { _ in
+                  stopTimer()
+                  isManualSwipe = true
+                }
+              )
+              .onChange(of: isDragging) { newIsActiveValue in
+                if !newIsActiveValue {
+                  DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    startTimer()
+                  }
+                }
+              }
             }
-          }
-        }
-      }
-      .onReceive(timer, perform: { _ in
-        withAnimation {
-          onSwipe?(selectedTab)
-            selectedTab += 1
-        }
-      })
-      .gesture(DragGesture()
-        .updating($isDragging, body: { _, state, _ in
-          state = true
-        })
-          .onChanged({ _ in
-            stopTimer()
-            isManualSwipe = true
-          })
-      )
-      .onChange(of: isDragging) { newIsActiveValue in
-        if !newIsActiveValue {
-          DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-            startTimer()
-          })
-        }
-      }
-    }
-    .onAppear {
-      if data.count > 1 {
-        startTimer()
-      }
-    }
+            .onAppear {
+              if data.count > 1 {
+                startTimer()
+              }
+            }
   }
 }
 
@@ -197,6 +199,8 @@ extension InfiniteCarousel {
     cancellable = nil
   }
 }
+
+// MARK: - InfiniteCarousel_Preview
 
 struct InfiniteCarousel_Preview: PreviewProvider {
   static var previews: some View {

@@ -3,6 +3,8 @@
 
 import SwiftUI
 
+// MARK: - DatePickerView
+
 public struct DatePickerView: View {
   @State private var selectedDate = Date()
   @State private var endDateAddition: Int = 0
@@ -25,6 +27,8 @@ public struct DatePickerView: View {
     }
   }
 }
+
+// MARK: - DatePickerView_Preview
 
 struct DatePickerView_Preview: PreviewProvider {
   static var previews: some View {

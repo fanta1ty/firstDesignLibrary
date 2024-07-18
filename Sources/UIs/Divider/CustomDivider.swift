@@ -3,6 +3,8 @@
 
 import SwiftUI
 
+// MARK: - CustomDivider
+
 public struct CustomDivider: View {
   @EnvironmentObject var themeProvider: ThemeProvider
 
@@ -24,6 +26,8 @@ public struct CustomDivider: View {
       .edgesIgnoringSafeArea(.horizontal)
   }
 }
+
+// MARK: - CustomDivider_Preview
 
 struct CustomDivider_Preview: PreviewProvider {
   static var previews: some View {

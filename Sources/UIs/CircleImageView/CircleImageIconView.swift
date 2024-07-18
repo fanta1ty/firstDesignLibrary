@@ -3,6 +3,8 @@
 
 import SwiftUI
 
+// MARK: - CircleImageIconView
+
 public struct CircleImageIconView: View {
   let fillColor: Color
   let diameter: CGFloat
@@ -37,6 +39,8 @@ public struct CircleImageIconView: View {
     }
   }
 }
+
+// MARK: - CircleImageIconView_Preview
 
 struct CircleImageIconView_Preview: PreviewProvider {
   static var previews: some View {
