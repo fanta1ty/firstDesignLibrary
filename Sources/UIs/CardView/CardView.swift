@@ -3,6 +3,8 @@
 
 import SwiftUI
 
+// MARK: - CardView
+
 public struct CardView<Content: View>: View {
   @EnvironmentObject var themeProvider: ThemeProvider
   @ViewBuilder let content: () -> Content
@@ -26,6 +28,8 @@ public struct CardView<Content: View>: View {
     }
   }
 }
+
+// MARK: - CardView_Preview
 
 struct CardView_Preview: PreviewProvider {
   static var previews: some View {

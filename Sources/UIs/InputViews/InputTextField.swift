@@ -5,6 +5,8 @@ import SwiftUI
 
 public let emptyContent = { EmptyView() }
 
+// MARK: - InputTextField
+
 public struct InputTextField<L: View, T: View>: View {
   @FocusState private var isForcused: Bool
   @State private var isAnimatedFocused: Bool = false
@@ -64,7 +66,7 @@ public struct InputTextField<L: View, T: View>: View {
             Text(label)
               .font(isLabelUp ? themeProvider.currentTheme.fonts.label2 : themeProvider.currentTheme.fonts.body2)
               .foregroundStyle(isEnabled ? themeProvider.currentTheme.colors.textTertiary : themeProvider.currentTheme.colors.textDisabled)
-              .padding(.bottom, isLabelUp ? 24: 0)
+              .padding(.bottom, isLabelUp ? 24 : 0)
 
           })
           .frame(height: 40)
@@ -110,6 +112,8 @@ public struct InputTextField<L: View, T: View>: View {
     return isEnabled ? themeProvider.currentTheme.colors.border : .clear
   }
 }
+
+// MARK: - InputTextField_Preview
 
 struct InputTextField_Preview: PreviewProvider {
   static var previews: some View {

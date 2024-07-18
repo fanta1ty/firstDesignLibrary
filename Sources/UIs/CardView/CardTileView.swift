@@ -3,6 +3,8 @@
 
 import SwiftUI
 
+// MARK: - CardTileView
+
 public struct CardTileView: View {
   @EnvironmentObject var themeProvider: ThemeProvider
   let title: String
@@ -28,6 +30,8 @@ public struct CardTileView: View {
     .padding(20)
   }
 }
+
+// MARK: - CardTileView_Preview
 
 struct CardTileView_Preview: PreviewProvider {
   static var previews: some View {

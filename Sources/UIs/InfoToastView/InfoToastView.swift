@@ -3,6 +3,8 @@
 
 import SwiftUI
 
+// MARK: - InfoToastView
+
 public struct InfoToastView: View {
   @EnvironmentObject var themeProvider: ThemeProvider
 
@@ -81,6 +83,8 @@ public struct InfoToastView: View {
     .fixedSize(horizontal: false, vertical: true)
   }
 }
+
+// MARK: - InfoToastView_Preview
 
 struct InfoToastView_Preview: PreviewProvider {
   static var previews: some View {

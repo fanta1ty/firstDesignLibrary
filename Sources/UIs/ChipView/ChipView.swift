@@ -3,6 +3,8 @@
 
 import SwiftUI
 
+// MARK: - ChipView
+
 public struct ChipView: View {
   @EnvironmentObject var themeProvider: ThemeProvider
   @State var isSelected: Bool = false
@@ -48,6 +50,8 @@ public struct ChipView: View {
     }
   }
 }
+
+// MARK: - ChipView_Preview
 
 struct ChipView_Preview: PreviewProvider {
   static var previews: some View {
