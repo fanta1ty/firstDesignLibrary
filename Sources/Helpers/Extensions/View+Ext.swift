@@ -120,3 +120,49 @@ extension View {
     modifier(DividerModifier(color: color))
   }
 }
+
+extension View {
+  @ViewBuilder func shimmering(
+    active: Bool = true,
+    shimmerStyle: ShimmerStyle = .shimmer
+  ) -> some View {
+    if active {
+      modifier(ShimmerModifier(shimmerStyle: shimmerStyle))
+    } else { self }
+  }
+}
+
+public extension View {
+  @ViewBuilder func loading(
+    active: Bool,
+    padding: CGFloat = 8
+  ) -> some View {
+    if active {
+      ProgressView()
+        .padding(padding)
+    } else {
+      self
+    }
+  }
+
+  @ViewBuilder func shimmerEffect(
+    active: Bool
+  ) -> some View {
+    if active {
+      redacted(reason: active ? .placeholder : [])
+        .shimmering(active: active)
+    } else {
+      self
+    }
+  }
+
+  @ViewBuilder func blingEffect(
+    active: Bool
+  ) -> some View {
+    if active {
+      shimmering(active: active, shimmerStyle: .bling)
+    } else {
+      self
+    }
+  }
+}
