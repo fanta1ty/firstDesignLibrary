@@ -175,3 +175,11 @@ public extension View {
     modifier(SpacerModifier(space: space))
   }
 }
+
+public extension View {
+  func onViewDidLoad(
+    perform action: @escaping (() -> Void)
+  ) -> some View {
+    modifier(ViewDidLoadModifier(action: action))
+  }
+}
