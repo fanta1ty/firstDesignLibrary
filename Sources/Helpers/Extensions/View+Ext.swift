@@ -166,3 +166,12 @@ public extension View {
     }
   }
 }
+
+public extension View {
+  func addSpace(
+    with space: CGFloat = 0,
+    isVertical _: Bool = true
+  ) -> some View {
+    modifier(SpacerModifier(space: space))
+  }
+}
