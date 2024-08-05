@@ -6,7 +6,12 @@ import SwiftUI
 
 public struct LineChartShape: Shape {
   let data: [Double]
-  var isBackground: Bool = false
+  let isBackground: Bool
+
+  public init(data: [Double], isBackground: Bool = true) {
+    self.data = data
+    self.isBackground = isBackground
+  }
 
   public func path(in rect: CGRect) -> Path {
     Path { path in
