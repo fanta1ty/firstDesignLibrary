@@ -82,7 +82,6 @@ public struct LineChartView: View {
                 }
             }
         }
-        .padding()
     }
 
     private func updateIndicator(geometrySize: CGSize, value: CGFloat) {
