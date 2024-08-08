@@ -4,6 +4,8 @@
 import Foundation
 import SwiftUI
 
+// MARK: - PlotPoint
+
 public struct PlotPoint: Shape {
   let data: [Double]
   let index: Int
@@ -16,6 +18,8 @@ public struct PlotPoint: Shape {
   }
 
   public func path(in rect: CGRect) -> Path {
+    guard data.indices.contains(index) else { return Path() }
+
     let maxY = data.max() ?? 0
     let minY = data.min() ?? 0
     let yAxis: CGFloat = maxY - minY
@@ -29,5 +33,23 @@ public struct PlotPoint: Shape {
     path.addEllipse(in: .init(x: xCenter - size / 2, y: yCenter - size / 2, width: size, height: size))
 
     return path
+  }
+}
+
+// MARK: - PlotPoint_Preview
+
+struct PlotPoint_Preview: PreviewProvider {
+  static var previews: some View {
+    VStack {
+      PlotPoint(
+        data: [
+          1.1,
+          2.3,
+          3.1,
+          4.1
+        ],
+        index: 1)
+    }
+    .previewable()
   }
 }

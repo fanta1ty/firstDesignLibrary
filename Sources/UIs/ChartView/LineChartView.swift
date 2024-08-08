@@ -8,9 +8,10 @@ import SwiftUI
 
 public struct LineChartView: View {
   @State private var indicatorValue: Double = 0
-  @State private var showVerticalLine: Bool = false
   @State private var tapLocation: CGPoint = .zero
+  @State private var showVerticalLine: Bool = false
   @EnvironmentObject var themeProvider: ThemeProvider
+  @Environment(\.colorScheme) var colorScheme
 
   let prices: [ChartData]
   let timeline: [String]
@@ -18,6 +19,7 @@ public struct LineChartView: View {
   let lineColor: Color
   let size: CGSize
   let onTap: ((Double, String?) -> Void)?
+  private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
 
   public init(
     prices: [ChartData],
@@ -47,32 +49,35 @@ public struct LineChartView: View {
             ))
             .background(
               LineChartShape(data: values, isBackground: true)
-                .fill(
-                  LinearGradient(
-                    gradient: Gradient(colors: [
-                      themeProvider.currentTheme.colors.uiBrand,
-                      .clear
-                    ]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                  )
-                )
+                .fill(.linearGradient(
+                  colors: [
+                    themeProvider.currentTheme.colors.uiBrand,
+                    .clear
+                  ],
+                  startPoint: .top,
+                  endPoint: .bottom
+                ))
             )
             .frame(height: size.height)
-            .gesture(dragGesture(geometrySize: geometry.size))
-            .padding(.bottom)
+            .gesture(dragGesture(geometry: geometry))
 
           if showVerticalLine {
+            lighterShape(in: geometry.size)
+              .gesture(dragGesture(geometry: geometry))
             verticalLine(in: geometry.size)
-            lighterRectangle(in: geometry.size)
-              .gesture(dragGesture(geometrySize: geometry.size))
           }
         }
       }
       .overlay(alignment: .topTrailing) {
-        plotPointsOverlay
+        if showVerticalLine {
+          plotPointsView
+        }
+      }
+      .onChange(of: indicatorValue) { _ in
+        feedbackGenerator.impactOccurred()
       }
       .frame(height: size.height)
+      .padding(.bottom)
 
       if !timeline.isEmpty {
         HStack {
@@ -84,10 +89,10 @@ public struct LineChartView: View {
     }
   }
 
-  private func updateIndicator(geometrySize: CGSize, value: CGFloat) {
-    let index = Int((value / geometrySize.width) * CGFloat(values.count - 1))
+  private func updateIndicator(geometry: GeometryProxy, value: CGFloat) {
+    let index = Int((value / geometry.size.width) * CGFloat(values.count - 1))
     indicatorValue = Double(index)
-    tapLocation = CGPoint(x: CGFloat(index) * (geometrySize.width / CGFloat(values.count - 1)), y: value)
+    tapLocation = CGPoint(x: CGFloat(index) * (geometry.size.width / CGFloat(values.count - 1)), y: 0)
     showVerticalLine = true
 
     let timelineItem = index < timeline.count ? timeline[index] : nil
@@ -106,29 +111,44 @@ public struct LineChartView: View {
     ))
   }
 
-  private func lighterRectangle(in size: CGSize) -> some View {
-    Rectangle()
-      .fill(Color.white.opacity(0.6))
-      .frame(width: size.width - tapLocation.x, height: size.height)
-      .position(x: tapLocation.x + (size.width - tapLocation.x) / 2, y: size.height / 2)
+  private func lighterShape(in size: CGSize) -> some View {
+    let filledColor: Color = colorScheme == .light ? .white.opacity(0.6) : .white.opacity(0.6)
+    let suffixValues = Array(values.suffix(from: Int(indicatorValue)))
+
+    return LighterShape(
+      tapLocation: tapLocation.x,
+      data: suffixValues,
+      totalWidth: size.width,
+      totalValues: values
+    )
+    .fill(filledColor)
+    .frame(height: size.height)
   }
 
-  private func dragGesture(geometrySize: CGSize) -> some Gesture {
+  private func dragGesture(geometry: GeometryProxy) -> some Gesture {
     DragGesture(minimumDistance: 0)
       .onChanged { value in
-        updateIndicator(geometrySize: geometrySize, value: value.location.x)
+        updateIndicator(geometry: geometry, value: value.location.x)
+      }
+      .onEnded { _ in
+        showVerticalLine = false
       }
   }
 
-  @ViewBuilder
-  private var plotPointsOverlay: some View {
-    if !values.isEmpty {
-      ZStack {
-        PlotPoint(data: values, index: Int(indicatorValue), size: 20.0)
-          .fill(lineColor.opacity(0.1))
-        PlotPoint(data: values, index: Int(indicatorValue))
-          .fill(lineColor)
-      }
+  private var plotPointsView: some View {
+    ZStack {
+      PlotPoint(
+        data: values,
+        index: Int(indicatorValue),
+        size: 20.0
+      )
+      .fill(lineColor.opacity(0.1))
+
+      PlotPoint(
+        data: values,
+        index: Int(indicatorValue)
+      )
+      .fill(lineColor)
     }
   }
 }
@@ -151,7 +171,9 @@ struct LineChartView_Preview: PreviewProvider {
 
   static var previews: some View {
     LineChartView(
-      prices: getChartData(), timeline: [], size: .init(width: 300, height: 300)
+      prices: getChartData(),
+      timeline: [],
+      size: .init(width: 300, height: 300)
     )
     .previewable()
   }
