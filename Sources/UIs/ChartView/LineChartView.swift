@@ -8,73 +8,95 @@ import SwiftUI
 
 public struct LineChartView: View {
   @State private var indicatorValue: Double = 0
-  @State private var showVerticalLine: Bool = false
   @State private var tapLocation: CGPoint = .zero
+  @State private var showVerticalLine: Bool = false
   @EnvironmentObject var themeProvider: ThemeProvider
+  @Environment(\.colorScheme) var colorScheme
 
-  let prices: [ChartData]
-  let timeline: [String]
-  let values: [Double]
-  let lineColor: Color
-  let size: CGSize
-  let onTap: ((Double, String?) -> Void)?
+  private let prices: [ChartData]
+  private let timeline: [String]
+  private let values: [Double]
+  private let lineColor: Color
+  private let lineWidth: CGFloat
+  private let verticalLineWidth: CGFloat
+  private let size: CGSize
+  private let showTimeLine: Bool
+  private let onTap: ((Double, String?) -> Void)?
+  private let onEnd: (() -> Void)?
+  private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
 
   public init(
     prices: [ChartData],
     timeline: [String],
+    showTimeLine: Bool,
     size: CGSize,
     lineColor: Color = Color(uiColor: .pr600),
-    onTap: ((Double, String?) -> Void)? = nil
+    lineWidth: CGFloat = 2,
+    verticalLineWidth: CGFloat = 1,
+    onTap: ((Double, String?) -> Void)? = nil,
+    onEnd: (() -> Void)? = nil
   ) {
     self.prices = prices
     self.timeline = timeline
     self.values = prices.map { $0.price }
     self.lineColor = lineColor
+    self.lineWidth = lineWidth
+    self.verticalLineWidth = verticalLineWidth
     self.size = size
+    self.showTimeLine = showTimeLine
+    self.onEnd = onEnd
     self.onTap = onTap
   }
 
   public var body: some View {
-    VStack {
+    VStack(spacing: 0) {
       GeometryReader { geometry in
         ZStack {
-          // Normal Chart
           LineChartShape(data: values)
             .stroke(lineColor, style: StrokeStyle(
-              lineWidth: 1,
+              lineWidth: lineWidth,
               lineCap: .round,
               lineJoin: .round
             ))
             .background(
               LineChartShape(data: values, isBackground: true)
-                .fill(
-                  LinearGradient(
-                    gradient: Gradient(colors: [
-                      themeProvider.currentTheme.colors.uiBrand,
-                      .clear
-                    ]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                  )
-                )
+                .fill(.linearGradient(
+                  colors: [
+                    themeProvider.currentTheme.colors.uiLineChartBackground,
+                    .clear
+                  ],
+                  startPoint: .top,
+                  endPoint: .bottom
+                ))
             )
             .frame(height: size.height)
-            .gesture(dragGesture(geometrySize: geometry.size))
-            .padding(.bottom)
+            .gesture(dragGesture(geometry: geometry))
 
           if showVerticalLine {
+            lighterShape(in: geometry.size)
+              .gesture(dragGesture(geometry: geometry))
             verticalLine(in: geometry.size)
-            lighterRectangle(in: geometry.size)
-              .gesture(dragGesture(geometrySize: geometry.size))
+          }
+        }
+        .overlay(alignment: .trailing) {
+          if !showVerticalLine {
+            pulseView(in: geometry.frame(in: .global))
           }
         }
       }
       .overlay(alignment: .topTrailing) {
-        plotPointsOverlay
+        if showVerticalLine {
+          plotPointsView
+        }
+      }
+      .onChange(of: indicatorValue) { _ in
+        feedbackGenerator.impactOccurred()
       }
       .frame(height: size.height)
+      .padding(.bottom)
+      .padding(.trailing, 24)
 
-      if !timeline.isEmpty {
+      if showTimeLine {
         HStack {
           ForEach(timeline, id: \.self) { time in
             Text(time)
@@ -84,14 +106,38 @@ public struct LineChartView: View {
     }
   }
 
-  private func updateIndicator(geometrySize: CGSize, value: CGFloat) {
-    let index = Int((value / geometrySize.width) * CGFloat(values.count - 1))
+  @ViewBuilder
+  private func pulseView(in rect: CGRect) -> some View {
+    if !values.isEmpty {
+      let index = values.count - 1
+
+      let maxY = values.max() ?? 0
+      let minY = values.min() ?? 0
+      let yAxis: CGFloat = maxY - minY
+
+      let xStep = rect.width / Double(index)
+
+      let xCenter = Double(index) * xStep
+      let yCenter = (1 - CGFloat((Double(values[index]) - minY) / yAxis)) * rect.height
+
+      ZStack {
+        AnimatedPlotPointView(
+          fillColor: lineColor,
+          size: .init(width: 36, height: 36))
+      }
+      .position(x: xCenter, y: yCenter)
+    }
+  }
+
+  private func updateIndicator(geometry: GeometryProxy, value: CGFloat) {
+    let index = Int((value / geometry.size.width) * CGFloat(values.count - 1))
     indicatorValue = Double(index)
-    tapLocation = CGPoint(x: CGFloat(index) * (geometrySize.width / CGFloat(values.count - 1)), y: value)
+    tapLocation = CGPoint(x: CGFloat(index) * (geometry.size.width / CGFloat(values.count - 1)), y: 0)
     showVerticalLine = true
 
     let timelineItem = index < timeline.count ? timeline[index] : nil
-    onTap?(values[index], timelineItem)
+    let value = index < values.count ? values[index] : 0
+    onTap?(value, timelineItem)
   }
 
   private func verticalLine(in size: CGSize) -> some View {
@@ -100,35 +146,51 @@ public struct LineChartView: View {
       path.addLine(to: .init(x: tapLocation.x, y: size.height))
     }
     .stroke(lineColor, style: StrokeStyle(
-      lineWidth: 1,
+      lineWidth: verticalLineWidth,
       lineCap: .round,
       lineJoin: .round
     ))
   }
 
-  private func lighterRectangle(in size: CGSize) -> some View {
-    Rectangle()
-      .fill(Color.white.opacity(0.6))
-      .frame(width: size.width - tapLocation.x, height: size.height)
-      .position(x: tapLocation.x + (size.width - tapLocation.x) / 2, y: size.height / 2)
+  private func lighterShape(in size: CGSize) -> some View {
+    let suffixValues = Array(values.suffix(from: Int(indicatorValue)))
+
+    return LighterShape(
+      tapLocation: tapLocation.x,
+      data: suffixValues,
+      totalWidth: size.width,
+      totalValues: values
+    )
+    .stroke(lineWidth: lineWidth)
+    .fill(colorScheme == .light ? .white.opacity(0.4) : .black.opacity(0.4))
+    .frame(height: size.height)
   }
 
-  private func dragGesture(geometrySize: CGSize) -> some Gesture {
+  private func dragGesture(geometry: GeometryProxy) -> some Gesture {
     DragGesture(minimumDistance: 0)
       .onChanged { value in
-        updateIndicator(geometrySize: geometrySize, value: value.location.x)
+        updateIndicator(geometry: geometry, value: value.location.x)
+      }
+      .onEnded { _ in
+        onEnd?()
+        showVerticalLine = false
       }
   }
 
-  @ViewBuilder
-  private var plotPointsOverlay: some View {
-    if !values.isEmpty {
-      ZStack {
-        PlotPoint(data: values, index: Int(indicatorValue), size: 20.0)
-          .fill(lineColor.opacity(0.1))
-        PlotPoint(data: values, index: Int(indicatorValue))
-          .fill(lineColor)
-      }
+  private var plotPointsView: some View {
+    ZStack {
+      PlotPoint(
+        data: values,
+        index: Int(indicatorValue),
+        size: 24.0
+      )
+      .fill(lineColor.opacity(0.2))
+
+      PlotPoint(
+        data: values,
+        index: Int(indicatorValue)
+      )
+      .fill(lineColor)
     }
   }
 }
@@ -151,7 +213,10 @@ struct LineChartView_Preview: PreviewProvider {
 
   static var previews: some View {
     LineChartView(
-      prices: getChartData(), timeline: [], size: .init(width: 300, height: 300)
+      prices: getChartData(),
+      timeline: [], 
+      showTimeLine: false,
+      size: .init(width: 300, height: 300)
     )
     .previewable()
   }
