@@ -116,6 +116,7 @@ public struct TColorsPalatte {
   public let uiPrimary50: Color
 
   public let uiTransparent: Color
+  public let uiLineChartBackground: Color
 
   public let tpBrandColor: Color
   public let tpBrandColorLight: Color
@@ -209,7 +210,8 @@ public extension TColorsPalatte {
     uiPrimaryDark: Color(.pr800),
     uiPrimaryLight: Color(.n0),
     uiPrimary50: Color(.pr50),
-    uiTransparent: Color(.n0.withAlphaComponent(0.0)),
+    uiTransparent: Color(.n0.withAlphaComponent(0.0)), 
+    uiLineChartBackground: Color(.pr200),
     tpBrandColor: Color(.sd700),
     tpBrandColorLight: Color(.sd400)
   )
@@ -301,7 +303,8 @@ public extension TColorsPalatte {
     uiPrimaryDark: Color(.pr800),
     uiPrimaryLight: Color(.n0),
     uiPrimary50: Color(.pr50),
-    uiTransparent: Color(.n0.withAlphaComponent(0.0)),
+    uiTransparent: Color(.n0.withAlphaComponent(0.0)), 
+    uiLineChartBackground: Color(.pr700),
     tpBrandColor: Color(.sd700),
     tpBrandColorLight: Color(.sd400)
   )

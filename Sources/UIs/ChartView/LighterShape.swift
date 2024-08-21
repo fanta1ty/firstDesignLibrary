@@ -35,26 +35,22 @@ public struct LighterShape: Shape {
 
 // MARK: - LighterShape_Preview
 
-struct LighterShape_Preview: PreviewProvider {
-  static var previews: some View {
-    VStack {
-      LighterShape(
-        tapLocation: 0.3,
-        data: [
-          1.1,
-          2.1,
-          3.1,
-          4.1
-        ],
-        totalWidth: 30,
-        totalValues: [
-          1.1,
-          2.1,
-          3.1,
-          4.1
-        ]
-      )
-    }
-    .previewable()
-  }
+#Preview {
+  LighterShape(
+    tapLocation: 0.3,
+    data: [
+      1.1,
+      2.1,
+      3.1,
+      4.1
+    ],
+    totalWidth: 30,
+    totalValues: [
+      1.1,
+      2.1,
+      3.1,
+      4.1
+    ]
+  )
+  .previewable()
 }

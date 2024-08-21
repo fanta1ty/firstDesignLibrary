@@ -39,19 +39,15 @@ public struct LineChartShape: Shape {
 
 // MARK: - LineChartShape_Preview
 
-struct LineChartShape_Preview: PreviewProvider {
-  static var previews: some View {
-    VStack {
-      LineChartShape(
-        data: [
-          1.1,
-          2.1,
-          3.1,
-          4.1
-        ],
-        isBackground: true
-      )
-    }
-    .previewable()
-  }
-}
+#Preview(body: {
+  LineChartShape(
+    data: [
+      1.1,
+      2.1,
+      3.1,
+      4.1
+    ],
+    isBackground: true
+  )
+  .previewable()
+})
