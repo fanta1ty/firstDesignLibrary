@@ -102,6 +102,39 @@ public extension String {
     var asColor: UIColor? {
         UIColor(hexString: self)
     }
+
+    var trimmed: String {
+        trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    var removingHTMLEntities: String {
+        replacingOccurrences(of: "<p>", with: "")
+            .replacingOccurrences(of: "</p>", with: "")
+            .replacingOccurrences(of: "&nbsp;", with: " ")
+            .replacingOccurrences(of: "&amp;", with: "&")
+            .replacingOccurrences(of: "&lt", with: "<")
+            .replacingOccurrences(of: "&gt", with: ">")
+            .replacingOccurrences(of: "<br>", with: "")
+    }
+
+    var htmlToAttributeString: NSMutableAttributedString? {
+        if let data = data(using: .utf8),
+           let attributedString = try? NSMutableAttributedString(
+               data: data,
+               options: [
+                   .documentType: NSAttributedString.DocumentType.html,
+                   .characterEncoding: String.Encoding.utf8.rawValue,
+               ],
+               documentAttributes: nil
+           ) { return attributedString }
+        else { return nil }
+    }
+
+    var prefixSuffixWithBase64: String {
+        guard let data = data(using: .utf8) else { return self }
+        let base64 = data.base64EncodedString()
+        return "base64#\(base64)#base64"
+    }
 }
 
 public extension String {
@@ -143,5 +176,15 @@ public extension String {
             }
         }
         return Data(arr)
+    }
+
+    func substring(fromStartIndex start: Int, endIndex end: Int) -> String? {
+        guard start >= 1, start <= count else { return nil }
+        guard end >= 0, end <= count, end > start else { return nil }
+
+        let startIndex = index(startIndex, offsetBy: start)
+        let endIndex = index(self.startIndex, offsetBy: end)
+        let range = startIndex ..< endIndex
+        return String(self[range])
     }
 }
