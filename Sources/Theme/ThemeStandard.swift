@@ -4,9 +4,9 @@
 import Foundation
 
 struct TThemeStandard: TTheme {
-  var id: ThemeType { .standard }
-  
-  var fonts: TTypography = .english
+    var id: ThemeType { .standard }
 
-  var colors: TColorsPalatte = .lightColorsPalette
+    var fonts: TTypography = .english
+
+    var colors: TColorsPalatte = .lightColorsPalette
 }

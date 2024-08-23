@@ -6,32 +6,32 @@ import SwiftUI
 // MARK: - CustomDivider
 
 public struct CustomDivider: View {
-  @EnvironmentObject var themeProvider: ThemeProvider
+    @EnvironmentObject var themeProvider: ThemeProvider
 
-  let color: Color?
-  let height: CGFloat?
+    let color: Color?
+    let height: CGFloat?
 
-  init(
-    color: Color? = nil,
-    height: CGFloat? = nil
-  ) {
-    self.color = color
-    self.height = height
-  }
+    init(
+        color: Color? = nil,
+        height: CGFloat? = nil
+    ) {
+        self.color = color
+        self.height = height
+    }
 
-  public var body: some View {
-    Rectangle()
-      .fill(color ?? themeProvider.currentTheme.colors.divider1)
-      .frame(height: height ?? 1)
-      .edgesIgnoringSafeArea(.horizontal)
-  }
+    public var body: some View {
+        Rectangle()
+            .fill(color ?? themeProvider.currentTheme.colors.divider1)
+            .frame(height: height ?? 1)
+            .edgesIgnoringSafeArea(.horizontal)
+    }
 }
 
 // MARK: - CustomDivider_Preview
 
 struct CustomDivider_Preview: PreviewProvider {
-  static var previews: some View {
-    CustomDivider()
-      .previewable()
-  }
+    static var previews: some View {
+        CustomDivider()
+            .previewable()
+    }
 }

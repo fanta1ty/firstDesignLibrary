@@ -4,7 +4,7 @@
 import Foundation
 
 public enum TransitionType {
-  case rotation3D,
-       scale,
-       opacity
+    case rotation3D,
+         scale,
+         opacity
 }

@@ -4,8 +4,8 @@
 import Foundation
 
 public enum ThemeType: String {
-  case standard,
-       light,
-       dark,
-       other
+    case standard,
+         light,
+         dark,
+         other
 }

@@ -4,11 +4,11 @@
 import SwiftUI
 
 public extension EnvironmentValues {
-  var statusBarHeight: CGFloat {
-    self[StatusBarHeightKey.self]
-  }
+    var statusBarHeight: CGFloat {
+        self[StatusBarHeightKey.self]
+    }
 
-  var safeAreaInsets: EdgeInsets {
-    self[SafeAreaInsetsKey.self]
-  }
+    var safeAreaInsets: EdgeInsets {
+        self[SafeAreaInsetsKey.self]
+    }
 }

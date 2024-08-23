@@ -4,11 +4,11 @@
 import SwiftUI
 
 public struct PresentationBackgroundModifier: ViewModifier {
-  let color: Color
+    let color: Color
 
-  public func body(content: Content) -> some View {
-    content.background(
-      PresentationBackgroundView(color: UIColor(color))
-    )
-  }
+    public func body(content: Content) -> some View {
+        content.background(
+            PresentationBackgroundView(color: UIColor(color))
+        )
+    }
 }

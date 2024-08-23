@@ -5,22 +5,22 @@ import SwiftUI
 import UIKit
 
 struct PresentationBackgroundView: UIViewRepresentable {
-  let color: UIColor
+    let color: UIColor
 
-  func makeUIView(context: Context) -> some UIView {
-    let view = UIView()
+    func makeUIView(context _: Context) -> some UIView {
+        let view = UIView()
 
-    DispatchQueue.main.async {
-      view.superview?
-        .superview?.backgroundColor = color
+        DispatchQueue.main.async {
+            view.superview?
+                .superview?.backgroundColor = color
+        }
+
+        return view
     }
 
-    return view
-  }
-
-  func updateUIView(_ uiView: UIViewType, context: Context) {
-    uiView.superview?
-      .superview?
-      .backgroundColor = color
-  }
+    func updateUIView(_ uiView: UIViewType, context _: Context) {
+        uiView.superview?
+            .superview?
+            .backgroundColor = color
+    }
 }

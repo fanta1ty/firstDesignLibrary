@@ -4,8 +4,8 @@
 import Foundation
 
 enum RowTextType {
-  case title,
-       subtitle,
-       desc,
-       link
+    case title,
+         subtitle,
+         desc,
+         link
 }
