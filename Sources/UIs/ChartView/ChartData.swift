@@ -4,9 +4,9 @@
 import Foundation
 
 public struct ChartData {
-  public let price: Double
+    public let price: Double
 
-  public init(price: Double) {
-    self.price = price
-  }
+    public init(price: Double) {
+        self.price = price
+    }
 }

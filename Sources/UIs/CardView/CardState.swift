@@ -4,9 +4,9 @@
 import Foundation
 
 public enum CardState {
-  case loading,
-       selected,
-       error,
-       loaded,
-       empty
+    case loading,
+         selected,
+         error,
+         loaded,
+         empty
 }

@@ -4,6 +4,6 @@
 import SwiftUI
 
 public protocol ContainerView: View {
-  associatedtype Content
-  init(content: @escaping () -> Content)
+    associatedtype Content
+    init(content: @escaping () -> Content)
 }

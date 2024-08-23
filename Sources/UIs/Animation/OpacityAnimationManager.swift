@@ -4,9 +4,9 @@
 import Foundation
 
 public class OpacityAnimationManager: ObservableObject {
-  @Published var opacity: Double = 0.0
+    @Published var opacity: Double = 0.0
 
-  public init(opacity: Double) {
-    self.opacity = opacity
-  }
+    public init(opacity: Double) {
+        self.opacity = opacity
+    }
 }

@@ -2,12 +2,11 @@
 //
 
 import Foundation
-import UIKit
 import SwiftUI
+import UIKit
 
 public extension UIColor {
-  var asColor: Color {
-    Color(uiColor: self)
-  }
+    var asColor: Color {
+        Color(uiColor: self)
+    }
 }
-
