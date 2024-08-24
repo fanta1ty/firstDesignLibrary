@@ -5,10 +5,6 @@ import Foundation
 import UIKit
 
 public extension UIImageView {
-    enum AssociatedKeys {
-        static var setImageKey = "setImageKey"
-    }
-
     var setImageKey: String? {
         get { return objc_getAssociatedObject(self, &AssociatedKeys.setImageKey) as? String }
         set {
