@@ -135,6 +135,18 @@ public extension String {
         let base64 = data.base64EncodedString()
         return "base64#\(base64)#base64"
     }
+
+    var asData: Data? {
+        data(using: .utf8)
+    }
+
+    var asInt: Int? {
+        Int(self)
+    }
+
+    var localised: String {
+        Self.localised(code: self)
+    }
 }
 
 public extension String {
@@ -144,6 +156,14 @@ public extension String {
             s += String(arc4random_uniform(10))
         }
         return s
+    }
+
+    static func repoDeserialise(data: Data) -> String? {
+        data.asString
+    }
+
+    static func localised(code: String) -> String {
+        NSLocalizedString(code, comment: "")
     }
 }
 
@@ -186,5 +206,32 @@ public extension String {
         let endIndex = index(self.startIndex, offsetBy: end)
         let range = startIndex ..< endIndex
         return String(self[range])
+    }
+
+    func substring(between: String, andEnd: String) -> String? {
+        guard let rangeA = range(of: between) else { return nil }
+        let remainder = self[rangeA.upperBound...]
+
+        guard let rangeB = remainder.range(of: andEnd) else { return nil }
+        let value = remainder[..<rangeB.lowerBound]
+
+        return String(value)
+    }
+
+    func asDataThrowing() throws -> Data {
+        guard let d = data(using: .utf8) else { throw Errors.couldNotConvertToData }
+        return d
+    }
+}
+
+extension String: StorableInRepo {
+    public func repoSerialise() -> Data? {
+        asData
+    }
+}
+
+extension String: FetchableFromUserDefaults {
+    public static func fetch(fromUserDefaults defaults: UserDefaults, key: String) -> String? {
+        defaults.string(forKey: key)
     }
 }

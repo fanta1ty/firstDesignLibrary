@@ -6,6 +6,14 @@ import SwiftUI
 import UIKit
 
 public extension UINavigationController {
+    static func designNav(rootVC: UIViewController) -> Self {
+        let nav = Self(navigationBarClass: DesignNavigationBar.self, toolbarClass: nil)
+        nav.viewControllers = [rootVC]
+        return nav
+    }
+}
+
+public extension UINavigationController {
     func push(
         viewController: UIViewController,
         removing: UIViewController?,
