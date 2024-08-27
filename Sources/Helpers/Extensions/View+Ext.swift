@@ -138,7 +138,7 @@ public extension View {
         padding: CGFloat = 8
     ) -> some View {
         if active {
-            ProgressView()
+            SwiftUI.ProgressView()
                 .padding(padding)
         } else {
             self

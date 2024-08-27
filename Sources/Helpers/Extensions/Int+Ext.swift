@@ -21,3 +21,19 @@ public extension Int {
         }
     }
 }
+
+extension Int: StorableInRepo {
+    public func repoSerialise() -> Data? {
+        String(self).asData
+    }
+
+    public static func repoDeserialise(data: Data) -> Int? {
+        data.asString.flatMap { Int($0) }
+    }
+}
+
+extension Int: FetchableFromUserDefaults {
+    public static func fetch(fromUserDefaults defaults: UserDefaults, key: String) -> Int? {
+        defaults.object(forKey: key) as? Int
+    }
+}

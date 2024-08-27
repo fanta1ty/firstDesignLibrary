@@ -4,176 +4,343 @@
 import Foundation
 import SwiftUI
 
-enum English {
-    static let title = brandFont(
+public enum English {
+    static let title: Font = brandFont(
         ofSize: 56,
         weight: .medium,
         isExtended: true
     )
 
-    static let heading1 = brandFont(
+    static let uiTitle: UIFont = brandFont(
+        ofSize: 56,
+        weight: .medium,
+        isExtended: true
+    )
+
+    static let heading1: Font = brandFont(
         ofSize: 40,
         weight: .regular,
         isExtended: true
     )
 
-    static let heading1UltraLight = brandFont(
+    static let uiHeading1: UIFont = brandFont(
+        ofSize: 40,
+        weight: .regular,
+        isExtended: true
+    )
+
+    static let heading1UltraLight: Font = brandFont(
         ofSize: 40,
         weight: .ultraLight,
         isExtended: true
     )
 
-    static let heading1Strong = brandFont(
+    static let uiHeading1UltraLight: UIFont = brandFont(
+        ofSize: 40,
+        weight: .ultraLight,
+        isExtended: true
+    )
+
+    static let heading1Strong: Font = brandFont(
         ofSize: 40,
         weight: .medium,
         isExtended: true
     )
 
-    static let heading2 = brandFont(
+    static let uiHeading1Strong: UIFont = brandFont(
+        ofSize: 40,
+        weight: .medium,
+        isExtended: true
+    )
+
+    static let heading2: Font = brandFont(
         ofSize: 32,
         weight: .regular,
         isExtended: true
     )
 
-    static let heading2UltraLight = brandFont(
+    static let uiHeading2: UIFont = brandFont(
+        ofSize: 32,
+        weight: .regular,
+        isExtended: true
+    )
+
+    static let heading2UltraLight: Font = brandFont(
         ofSize: 32,
         weight: .ultraLight,
         isExtended: true
     )
 
-    static let heading2Strong = brandFont(
+    static let uiHeading2UltraLight: UIFont = brandFont(
+        ofSize: 32,
+        weight: .ultraLight,
+        isExtended: true
+    )
+
+    static let heading2Strong: Font = brandFont(
         ofSize: 32,
         weight: .medium,
         isExtended: true
     )
 
-    static let heading3 = brandFont(
+    static let uiHeading2Strong: UIFont = brandFont(
+        ofSize: 32,
+        weight: .medium,
+        isExtended: true
+    )
+
+    static let heading3: Font = brandFont(
         ofSize: 24,
         weight: .regular,
         isExtended: true
     )
 
-    static let heading3UltraLight = brandFont(
+    static let uiHeading3: UIFont = brandFont(
+        ofSize: 24,
+        weight: .regular,
+        isExtended: true
+    )
+
+    static let heading3UltraLight: Font = brandFont(
         ofSize: 24,
         weight: .ultraLight,
         isExtended: true
     )
 
-    static let heading3Strong = brandFont(
+    static let uiHeading3UltraLight: UIFont = brandFont(
+        ofSize: 24,
+        weight: .ultraLight,
+        isExtended: true
+    )
+
+    static let heading3Strong: Font = brandFont(
         ofSize: 24,
         weight: .medium,
         isExtended: true
     )
 
-    static let heading4 = brandFont(
+    static let uiHeading3Strong: UIFont = brandFont(
+        ofSize: 24,
+        weight: .medium,
+        isExtended: true
+    )
+
+    static let heading4: Font = brandFont(
         ofSize: 18,
         weight: .regular
     )
 
-    static let heading4Special = brandFont(
+    static let uiHeading4: UIFont = brandFont(
+        ofSize: 18,
+        weight: .regular
+    )
+
+    static let heading4Special: Font = brandFont(
         ofSize: 20,
         weight: .regular,
         isExtended: true
     )
 
-    static let heading4Strong = brandFont(
+    static let uiHeading4Special: UIFont = brandFont(
+        ofSize: 20,
+        weight: .regular,
+        isExtended: true
+    )
+
+    static let heading4Strong: Font = brandFont(
         ofSize: 18,
         weight: .medium
     )
 
-    static let heading5 = brandFont(
+    static let uiHeading4Strong: UIFont = brandFont(
+        ofSize: 18,
+        weight: .medium
+    )
+
+    static let heading5: Font = brandFont(
         ofSize: 16,
         weight: .medium
     )
 
-    static let headingPdt = brandFont(
+    static let uiHeading5: UIFont = brandFont(
+        ofSize: 16,
+        weight: .medium
+    )
+
+    static let headingPdt: Font = brandFont(
         ofSize: 14,
         weight: .regular
     )
 
-    static let heading6 = brandFont(
+    static let uiHeadingPdt: UIFont = brandFont(
         ofSize: 14,
         weight: .regular
     )
 
-    static let heading7 = brandFont(
+    static let heading6: Font = brandFont(
+        ofSize: 14,
+        weight: .regular
+    )
+
+    static let uiHeading6: UIFont = brandFont(
+        ofSize: 14,
+        weight: .regular
+    )
+
+    static let heading7: Font = brandFont(
         ofSize: 12,
         weight: .medium,
         isExtended: true
     )
 
-    static let body1 = brandFont(
+    static let uiHeading7: UIFont = brandFont(
+        ofSize: 12,
+        weight: .medium,
+        isExtended: true
+    )
+
+    static let body1: Font = brandFont(
         ofSize: 16,
         weight: .regular
     )
 
-    static let body1Strong = brandFont(
+    static let uiBody1: UIFont = brandFont(
+        ofSize: 16,
+        weight: .regular
+    )
+
+    static let body1Strong: Font = brandFont(
         ofSize: 16,
         weight: .medium
     )
 
-    static let body2 = brandFont(
+    static let uiBody1Strong: UIFont = brandFont(
+        ofSize: 16,
+        weight: .medium
+    )
+
+    static let body2: Font = brandFont(
         ofSize: 14,
         weight: .regular
     )
 
-    static let body2Strong = brandFont(
+    static let uiBody2: UIFont = brandFont(
+        ofSize: 14,
+        weight: .regular
+    )
+
+    static let body2Strong: Font = brandFont(
         ofSize: 14,
         weight: .medium
     )
 
-    static let body3 = brandFont(
+    static let uiBody2Strong: UIFont = brandFont(
+        ofSize: 14,
+        weight: .medium
+    )
+
+    static let body3: Font = brandFont(
         ofSize: 12,
         weight: .regular
     )
 
-    static let body3Strong = brandFont(
+    static let uiBody3: UIFont = brandFont(
+        ofSize: 12,
+        weight: .regular
+    )
+
+    static let body3Strong: Font = brandFont(
         ofSize: 12,
         weight: .medium
     )
 
-    static let body4 = brandFont(
+    static let uiBody3Strong: UIFont = brandFont(
+        ofSize: 12,
+        weight: .medium
+    )
+
+    static let body4: Font = brandFont(
         ofSize: 10,
         weight: .regular
     )
 
-    static let body4Strong = brandFont(
+    static let uiBody4: UIFont = brandFont(
+        ofSize: 10,
+        weight: .regular
+    )
+
+    static let body4Strong: Font = brandFont(
         ofSize: 10,
         weight: .medium
     )
 
-    static let label1 = brandFont(
+    static let uiBody4Strong: UIFont = brandFont(
+        ofSize: 10,
+        weight: .medium
+    )
+
+    static let label1: Font = brandFont(
         ofSize: 16,
         weight: .regular
     )
 
-    static let label2 = brandFont(
+    static let uiLabel1: UIFont = brandFont(
+        ofSize: 16,
+        weight: .regular
+    )
+
+    static let label2: Font = brandFont(
         ofSize: 12,
         weight: .regular
     )
 
-    static let link1 = brandFont(
+    static let uiLabel2: UIFont = brandFont(
+        ofSize: 12,
+        weight: .regular
+    )
+
+    static let link1: Font = brandFont(
         ofSize: 14,
         weight: .regular
     )
 
-    static let link2 = brandFont(
+    static let uiLink1: UIFont = brandFont(
+        ofSize: 14,
+        weight: .regular
+    )
+
+    static let link2: Font = brandFont(
         ofSize: 12,
         weight: .regular
     )
 
-    static let list1 = brandFont(
+    static let uiLink2: UIFont = brandFont(
+        ofSize: 12,
+        weight: .regular
+    )
+
+    static let list1: Font = brandFont(
         ofSize: 16,
         weight: .regular
     )
 
-    static let list2 = brandFont(
+    static let uiList1: UIFont = brandFont(
+        ofSize: 16,
+        weight: .regular
+    )
+
+    static let list2: Font = brandFont(
+        ofSize: 14,
+        weight: .regular
+    )
+
+    static let uiList2: UIFont = brandFont(
         ofSize: 14,
         weight: .regular
     )
 }
 
-extension English {
+public extension English {
     static func brandFont(
         ofSize size: CGFloat,
         weight: Font.Weight,
@@ -196,5 +363,28 @@ extension English {
 
         return .custom(name, fixedSize: size)
             .weight(weight)
+    }
+
+    static func brandFont(
+        ofSize size: CGFloat,
+        weight: UIFont.Weight,
+        isExtended: Bool = false
+    ) -> UIFont {
+        let name: String
+
+        switch weight {
+        case .ultraLight:
+            name = isExtended ? "GTAmerica-ExtULt" : "GTAmerica-Lt"
+
+        case .regular:
+            name = isExtended ? "GTAmerica-ExtRg" : "GTAmerica-Rg"
+
+        case .medium:
+            name = isExtended ? "GTAmerica-ExtMd" : "GTAmerica-Md"
+
+        default: return .systemFont(ofSize: size, weight: weight)
+        }
+
+        return .init(name: name, size: size) ?? .systemFont(ofSize: size, weight: weight)
     }
 }
