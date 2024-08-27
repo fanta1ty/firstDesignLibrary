@@ -21,7 +21,6 @@ public final class LoadingViewController: UIViewController {
 
         loading.isUserInteractionEnabled = false
         loading.contentMode = .scaleAspectFill
-        loading.show() // Pass the main view to show the loading view
 
         ContextManager.shared.startupManager.$error.sink { [weak self] error in
             guard let self else { return }
@@ -29,8 +28,6 @@ public final class LoadingViewController: UIViewController {
             if let error = error {
                 print("Loading error: \(error)")
             }
-
-            // self.loading.stop()
         }.store(in: &cancellables)
 
         Publishers.CombineLatest($isAppearing.removeDuplicates(), ContextManager.shared.startupManager.$error)

@@ -92,8 +92,7 @@ public extension UIViewController {
         window.layoutIfNeeded()
 
         UIView.animate(withDuration: 0.5, animations: {
-            view.blur.alpha = 1
-            view.animationContainer.alpha = 1
+            view.blur.alpha = 0.8
         })
 
         return view

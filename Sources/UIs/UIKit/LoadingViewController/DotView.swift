@@ -6,22 +6,22 @@ import UIKit
 
 public final class DotView: UIView {
     private let expandRate: CGFloat = 2.0
-    private let animationDuration: CGFloat = 0.4
+    private let animationDuration: TimeInterval = 0.4
 
     private var isExpanding: Bool = false
-    private var animationDelay: Double = 0
+    private var animationDelay: TimeInterval
 
     public init(
         color: UIColor,
-        delay: Double,
+        delay: TimeInterval,
         frame: CGRect
     ) {
+        animationDelay = delay
         super.init(frame: frame)
 
         layer.cornerRadius = frame.width / 2
         clipsToBounds = true
         backgroundColor = color
-        animationDelay = delay
 
         startAnimation()
     }
@@ -32,30 +32,19 @@ public final class DotView: UIView {
     }
 
     private func startAnimation() {
-        var animator: UIViewPropertyAnimator = .init(duration: animationDuration, curve: .linear)
-        if isExpanding {
-            animator = .init(duration: animationDuration / 1.05, curve: .easeInOut)
-            animator.addAnimations {
-                self.transform = .init(scaleX: 1.0, y: 1.0)
-            }
-        } else {
-            animator.addAnimations {
-                self.transform = .init(scaleX: self.expandRate, y: self.expandRate)
-            }
+        let scale: CGFloat = isExpanding ? 1.0 : expandRate
+        let adjustedDuration = isExpanding ? animationDuration / 1.05 : animationDuration
+
+        let animator = UIViewPropertyAnimator(duration: adjustedDuration, curve: .easeInOut) {
+            self.transform = CGAffineTransform(scaleX: scale, y: scale)
         }
 
         animator.addCompletion { _ in
+            self.isExpanding.toggle()
+            self.animationDelay = self.isExpanding ? 0.1 : 0.9
             self.startAnimation()
         }
 
         animator.startAnimation(afterDelay: animationDelay)
-
-        if isExpanding {
-            isExpanding = false
-            animationDelay = 0.9
-        } else {
-            isExpanding = true
-            animationDelay = 0.1
-        }
     }
 }
