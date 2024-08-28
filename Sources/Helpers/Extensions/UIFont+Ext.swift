@@ -129,3 +129,42 @@ public extension UIFont {
         ContextManager.shared.localiseManager.language.brandFont(named: "list2")
     }
 }
+
+public extension UIFont {
+    static func brandFont(named: String) -> UIFont {
+        switch named {
+        case "title": return title
+        case "heading1": return heading1
+        case "heading1UltraLight": return heading1UltraLight
+        case "heading1Strong": return heading1Strong
+        case "heading2": return heading2
+        case "heading2UltraLight": return heading2UltraLight
+        case "heading2Strong": return heading2Strong
+        case "heading3": return heading3
+        case "heading3UltraLight": return heading3UltraLight
+        case "heading3Strong": return heading3Strong
+        case "heading4": return heading4
+        case "heading4Special": return heading4Special
+        case "heading4Strong": return heading4Strong
+        case "heading5": return heading5
+        case "headingPdt": return headingPdt
+        case "heading6": return heading6
+        case "heading7": return heading7
+        case "body1": return body1
+        case "body1Strong": return body1Strong
+        case "body2": return body2
+        case "body2Strong": return body2Strong
+        case "body3": return body3
+        case "body3Strong": return body3Strong
+        case "body4": return body4
+        case "body4Strong": return body4Strong
+        case "label1": return label1
+        case "label2": return label2
+        case "link1": return link1
+        case "link2": return link2
+        case "list1": return list1
+        case "list2": return list2
+        default: return body1
+        }
+    }
+}
