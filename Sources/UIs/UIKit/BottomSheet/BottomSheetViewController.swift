@@ -91,7 +91,7 @@ public class BottomSheetViewController: UIViewController {
         if showCloseButton {
             let close = UIButton(type: .system)
             close.tintColor = .iconActive
-            close.setImage(UIImage(resource: .close), for: .normal)
+            close.setImage(.close, for: .normal)
             close.addTarget(self, action: #selector(didDismiss), for: .touchUpInside)
             close.translatesAutoresizingMaskIntoConstraints = false
             container.addSubview(close)
