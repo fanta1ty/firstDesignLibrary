@@ -32,7 +32,7 @@ public final class HeadingWithChevronCell: UITableViewCell {
         backgroundColor = .uiBackgroundPrimary
 
         chevron.setTitleColor(.textLink, for: .normal)
-        chevron.setImage(.init(resource: .right), for: .normal)
+        chevron.setImage(.navigationRight, for: .normal)
         chevron.titleLabel?.font = .link1
         chevron.tintColor = .iconActive
         chevron.isUserInteractionEnabled = false

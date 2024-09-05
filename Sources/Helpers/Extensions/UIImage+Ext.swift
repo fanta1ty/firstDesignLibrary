@@ -9,3 +9,11 @@ public extension UIImage {
         size.width / size.height
     }
 }
+
+public extension UIImage {
+    static var caretDown: UIImage { UIImage(resource: .caretDown) }
+    static var close: UIImage { UIImage(resource: .close) }
+    static var navigationRight: UIImage { UIImage(resource: .right) }
+    static var statusError: UIImage { UIImage(resource: .statusError) }
+    static var statusSuccess: UIImage { UIImage(resource: .statusSuccess) }
+}
