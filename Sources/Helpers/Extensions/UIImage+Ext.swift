@@ -16,4 +16,5 @@ public extension UIImage {
     static var navigationRight: UIImage { UIImage(resource: .right) }
     static var statusError: UIImage { UIImage(resource: .statusError) }
     static var statusSuccess: UIImage { UIImage(resource: .statusSuccess) }
+    static var inputFieldEdit: UIImage { UIImage(resource: .inputFieldEdit) }
 }
