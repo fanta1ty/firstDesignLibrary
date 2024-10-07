@@ -17,4 +17,6 @@ public extension UIImage {
     static var statusError: UIImage { UIImage(resource: .statusError) }
     static var statusSuccess: UIImage { UIImage(resource: .statusSuccess) }
     static var inputFieldEdit: UIImage { UIImage(resource: .inputFieldEdit) }
+    static var placeholder: UIImage { UIImage(resource: .placeholder) }
+    static var closeCircle: UIImage { UIImage(resource: .closeCircle) }
 }
