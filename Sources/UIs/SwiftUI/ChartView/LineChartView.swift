@@ -155,15 +155,25 @@ public struct LineChartView: View {
 
     private func lighterShape(in size: CGSize) -> some View {
         let suffixValues = Array(values.suffix(from: Int(indicatorValue)))
+        let isLightMode = colorScheme == .light
 
-        return LighterShape(
-            tapLocation: tapLocation.x,
-            data: suffixValues,
-            totalWidth: size.width,
-            totalValues: values
-        )
-        .stroke(lineWidth: lineWidth)
-        .fill(colorScheme == .light ? .white.opacity(0.4) : .black.opacity(0.4))
+        return ZStack(content: {
+            LighterShape(
+                tapLocation: tapLocation.x,
+                data: suffixValues,
+                totalWidth: size.width,
+                totalValues: values
+            )
+            .fill(isLightMode ? .white.opacity(0.8) : .black.opacity(0.2))
+
+            LighterShape(
+                tapLocation: tapLocation.x,
+                data: suffixValues,
+                totalWidth: size.width,
+                totalValues: values
+            )
+            .stroke(isLightMode ? .white.opacity(0.6) : .black.opacity(0.4), lineWidth: lineWidth)
+        })
         .frame(height: size.height)
     }
 
