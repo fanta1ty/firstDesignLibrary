@@ -30,8 +30,8 @@ public final class ToastView: UIView {
 
         newStack.axis = .horizontal
         newStack.alignment = .leading
-        newStack.spacing = 8
         newStack.translatesAutoresizingMaskIntoConstraints = false
+        newStack.spacing = 8
         addSubview(newStack)
         
         NSLayoutConstraint.activate([
