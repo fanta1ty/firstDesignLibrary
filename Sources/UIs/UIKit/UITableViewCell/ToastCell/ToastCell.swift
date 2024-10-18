@@ -29,6 +29,7 @@ public final class ToastCell: UITableViewCell {
 
         divider.isHidden = true
         divider.backgroundColor = .divider1
+        divider.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(divider)
         NSLayoutConstraint.activate([
             divider.heightAnchor.constraint(equalToConstant: 1),
