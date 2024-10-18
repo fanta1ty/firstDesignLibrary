@@ -29,7 +29,7 @@ public final class MultilineDropDownCell: UITableViewCell {
             multilineDropDown.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             multilineDropDown.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
             multilineDropDown.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            multilineDropDown.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12)
+            multilineDropDown.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
         ])
     }
 
@@ -38,7 +38,7 @@ public final class MultilineDropDownCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func prepareForReuse() {
+    override public func prepareForReuse() {
         super.prepareForReuse()
 
         cancellables.removeAll()
@@ -47,7 +47,7 @@ public final class MultilineDropDownCell: UITableViewCell {
 }
 
 extension MultilineDropDownCell: MultilineDropDownViewDelegate {
-    public func multilineDropdown(viewDidSelect: MultilineDropDownView) {
+    public func multilineDropdown(viewDidSelect _: MultilineDropDownView) {
         didSelect?()
     }
 }

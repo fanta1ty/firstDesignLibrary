@@ -36,7 +36,7 @@ public final class NextBestActionCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func prepareForReuse() {
+    override public func prepareForReuse() {
         super.prepareForReuse()
 
         nba.onSelectClose = nil

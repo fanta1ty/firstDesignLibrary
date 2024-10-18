@@ -27,7 +27,7 @@ public final class Spacer16Cell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func prepareForReuse() {
+    override public func prepareForReuse() {
         super.prepareForReuse()
         height?.constant = 16
     }

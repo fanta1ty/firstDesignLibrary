@@ -27,7 +27,7 @@ public final class LoadingCell: UITableViewCell {
         contentView.addSubview(indicator)
 
         NSLayoutConstraint.activate([
-            indicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+            indicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
         ])
 
         top = indicator.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 32)
@@ -42,7 +42,7 @@ public final class LoadingCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func prepareForReuse() {
+    override public func prepareForReuse() {
         super.prepareForReuse()
 
         indicator.startAnimating()

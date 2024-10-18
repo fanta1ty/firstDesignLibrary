@@ -7,7 +7,7 @@ import UIKit
 public final class TagView: UIView {
     public let label = UILabel()
 
-    public override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
@@ -42,7 +42,7 @@ public final class TagView: UIView {
         NSLayoutConstraint.activate([
             label.centerYAnchor.constraint(equalTo: centerYAnchor),
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
         ])
     }
 
@@ -51,12 +51,12 @@ public final class TagView: UIView {
         label.textColor = isInverse ? .textPrimaryInverse : status.color
     }
 
-    public override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = bounds.height / 2
     }
 
-    public override var intrinsicContentSize: CGSize {
+    override public var intrinsicContentSize: CGSize {
         .init(
             width: ceil(label.intrinsicContentSize.width) + 16,
             height: 16

@@ -33,7 +33,7 @@ public class MultilineDropDownView: UIView {
         }
     }
 
-    public override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
@@ -54,7 +54,7 @@ public class MultilineDropDownView: UIView {
             container.trailingAnchor.constraint(equalTo: trailingAnchor),
             container.topAnchor.constraint(equalTo: topAnchor),
             container.bottomAnchor.constraint(equalTo: bottomAnchor),
-            container.heightAnchor.constraint(greaterThanOrEqualToConstant: 72)
+            container.heightAnchor.constraint(greaterThanOrEqualToConstant: 72),
         ])
 
         let inputContainer = UIView()
@@ -82,7 +82,7 @@ public class MultilineDropDownView: UIView {
             value.leadingAnchor.constraint(equalTo: inputContainer.leadingAnchor),
             value.trailingAnchor.constraint(equalTo: inputContainer.trailingAnchor),
             value.topAnchor.constraint(equalTo: inputContainer.topAnchor, constant: 20),
-            value.bottomAnchor.constraint(equalTo: inputContainer.bottomAnchor)
+            value.bottomAnchor.constraint(equalTo: inputContainer.bottomAnchor),
         ])
 
         icon.clipsToBounds = true
@@ -92,7 +92,7 @@ public class MultilineDropDownView: UIView {
 
         let stack = UIStackView(arrangedSubviews: [
             inputContainer,
-            icon
+            icon,
         ])
         stack.axis = .horizontal
         stack.alignment = .fill
@@ -105,7 +105,7 @@ public class MultilineDropDownView: UIView {
             stack.topAnchor.constraint(equalTo: container.topAnchor, constant: 16),
             stack.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -16),
             stack.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            stack.trailingAnchor.constraint(equalTo: container.trailingAnchor)
+            stack.trailingAnchor.constraint(equalTo: container.trailingAnchor),
         ])
 
         divider.translatesAutoresizingMaskIntoConstraints = false
@@ -115,7 +115,7 @@ public class MultilineDropDownView: UIView {
             divider.heightAnchor.constraint(equalToConstant: 1),
             divider.bottomAnchor.constraint(equalTo: container.bottomAnchor),
             divider.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            divider.trailingAnchor.constraint(equalTo: container.trailingAnchor)
+            divider.trailingAnchor.constraint(equalTo: container.trailingAnchor),
         ])
 
         updateStyles()
@@ -132,7 +132,7 @@ public class MultilineDropDownView: UIView {
         divider.backgroundColor = isEnabled ? .border : nil
     }
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    override public func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         let previous: UIUserInterfaceStyle = previousTraitCollection?.userInterfaceStyle ?? .unspecified
         if previous != traitCollection.userInterfaceStyle {
@@ -140,11 +140,11 @@ public class MultilineDropDownView: UIView {
         }
     }
 
-    public override var intrinsicContentSize: CGSize {
+    override public var intrinsicContentSize: CGSize {
         .init(width: 160, height: 72)
     }
 
-    public override func updateConstraints() {
+    override public func updateConstraints() {
         super.updateConstraints()
 
         let isUp = !(value.text ?? "").isEmpty
@@ -165,18 +165,18 @@ public class MultilineDropDownView: UIView {
     }
 }
 
-extension MultilineDropDownView {
-    public var labelText: String {
+public extension MultilineDropDownView {
+    var labelText: String {
         get { label.text ?? "" }
         set { label.text = newValue }
     }
 
-    public var valueText: String? {
+    var valueText: String? {
         get { value.text ?? "" }
         set { value.text = newValue }
     }
 
-    public func setValueText(_ newValue: String, animated: Bool) {
+    func setValueText(_ newValue: String, animated: Bool) {
         valueText = newValue
         let wasUp = (value.text ?? "").isEmpty
         let isNowUp = !newValue.isEmpty
@@ -191,7 +191,7 @@ extension MultilineDropDownView {
         }
     }
 
-    public var iconImage: UIImage? {
+    var iconImage: UIImage? {
         get { icon.image }
         set {
             icon.image = newValue?.withRenderingMode(.alwaysTemplate)
@@ -199,7 +199,7 @@ extension MultilineDropDownView {
         }
     }
 
-    public var isIconHidden: Bool {
+    var isIconHidden: Bool {
         get { icon.isHidden }
         set { icon.isHidden = newValue }
     }
