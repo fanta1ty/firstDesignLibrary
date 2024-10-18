@@ -28,7 +28,7 @@ public final class PlainResultCell: UITableViewCell {
             label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12)
+            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
         ])
 
         line.backgroundColor = .divider1
@@ -40,7 +40,7 @@ public final class PlainResultCell: UITableViewCell {
             line.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             line.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             line.topAnchor.constraint(equalTo: contentView.bottomAnchor),
-            line.heightAnchor.constraint(equalToConstant: 1)
+            line.heightAnchor.constraint(equalToConstant: 1),
         ])
     }
 

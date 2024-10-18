@@ -11,7 +11,7 @@ public final class NextBestActionView: UIView {
 
     public var onSelectClose: (() -> Void)?
 
-    public override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
@@ -92,10 +92,10 @@ public final class NextBestActionView: UIView {
     public func configure(heading: String, text: String, isCloseHidden: Bool) {
         self.heading.text = heading
         self.text.text = text
-        self.close.isHidden = isCloseHidden
+        close.isHidden = isCloseHidden
     }
 
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    override public func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         let previous: UIUserInterfaceStyle = previousTraitCollection?.userInterfaceStyle ?? .unspecified
         if previous != traitCollection.userInterfaceStyle {

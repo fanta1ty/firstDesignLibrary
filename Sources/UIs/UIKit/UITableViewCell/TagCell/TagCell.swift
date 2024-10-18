@@ -34,7 +34,7 @@ public final class TagCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func prepareForReuse() {
+    override public func prepareForReuse() {
         super.prepareForReuse()
         top?.constant = 24
         bottom?.constant = -24
