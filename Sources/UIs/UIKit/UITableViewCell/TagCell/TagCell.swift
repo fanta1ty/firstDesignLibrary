@@ -7,8 +7,8 @@ public final class TagCell: UITableViewCell {
     public static let id = "TagCell"
 
     public let tagView = TagView()
-    public var top:
-    public var height: NSLayoutConstraint?
+    public var top: NSLayoutConstraint?
+    public var bottom: NSLayoutConstraint?
 
     override public init(
         style: UITableViewCell.CellStyle,
@@ -19,8 +19,14 @@ public final class TagCell: UITableViewCell {
         selectionStyle = .none
         backgroundColor = .uiBackgroundSecondary
 
-        height = contentView.heightAnchor.constraint(equalToConstant: 16)
-        height?.isActive = true
+        tagView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(tagView)
+        tagView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24).isActive = true
+        tagView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -24).isActive = true
+        top = tagView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24)
+        top?.isActive = true
+        bottom = tagView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24)
+        bottom?.isActive = true
     }
 
     @available(*, unavailable)
@@ -30,6 +36,7 @@ public final class TagCell: UITableViewCell {
 
     public override func prepareForReuse() {
         super.prepareForReuse()
-        height?.constant = 16
+        top?.constant = 24
+        bottom?.constant = -24
     }
 }
