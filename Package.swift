@@ -16,7 +16,6 @@ let package = Package(
     targets: [
         .target(
             name: "firstDesignLibrary",
-            dependencies: [],
             path: "Sources"
         ),
     ]
