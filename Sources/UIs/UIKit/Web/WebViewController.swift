@@ -80,7 +80,7 @@ extension WebViewController: WKNavigationDelegate {
     }
 }
 
-extension WebViewController {
+public extension WebViewController {
     static func instantiate(
         url: URL,
         title: String? = nil
